@@ -19,8 +19,8 @@ class Movie {
     public:
     void addReview(float, string);
     void printReviews();
-    Movie() {title = " ", head = nullptr; }
-    Movie(string t) {title = t, head = nullptr; }
+    Movie() {title = " "; head = nullptr;}
+    Movie(string t) {title = t; head = nullptr; }
     ~Movie();
 };
 
@@ -62,15 +62,16 @@ void Movie::printReviews() {
     }
 }
 
+// we don't start at head because it is in the Movie class and thus part of stack
 Movie::~Movie() {
-    Review *current = this->head;
-    current = this->head;
-    while (current && head) {
-        head = current->next;
-        delete current;
-        current = head;
+    Review *current = this->head->next;
+    current = this->head->next;
+    while (current) {
+        this->head = current->next;
+        nullptr;
+        current = this->head;
     }
-    head = nullptr;
+    this->head = nullptr;
 }
 
 int main() {

@@ -22,7 +22,7 @@ class Movie {
 };
 
 Movie::addReview(float rating, string comment) {
-    Review newReview = new Review;
+    Review *newReview = new Review;
     newReview->next = nullptr;
     newReview->rating = rating;
     newReview->comment = comment;
@@ -50,5 +50,18 @@ Movie::printReviews() {
             current = current->next;
         }
         cout << "  > Average: " << (sum / count);
+    }
+}
+
+Movie::~Movie() {
+    Review *current = new Review;
+    Review *next = newReview;
+    if (head) {
+        current = head;
+        while (current) {
+            next = current->next;
+            delete current
+            current = next;
+        }
     }
 }

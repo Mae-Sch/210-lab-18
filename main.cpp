@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class Review {
+struct Review {
     float rating;
     string comment;
     Review *next;
@@ -16,10 +16,10 @@ class Movie {
     Review *head;
 
     public:
-    addReview(float, string);
-    printReviews();
-    Movie() {title = " ", head = nullptr};
-    Movie(string t) {title = t, head = nullptr};
+    void addReview(float, string);
+    void printReviews();
+    Movie() {title = " ", head = nullptr; }
+    Movie(string t) {title = t, head = nullptr; }
     ~Movie();
 };
 
@@ -29,7 +29,7 @@ float randomRating() {
     return num;
 }
 
-Movie::addReview(float rating, string comment) {
+void Movie::addReview(float rating, string comment) {
     Review *newReview = new Review;
     newReview->next = nullptr;
     newReview->rating = rating;
@@ -42,15 +42,15 @@ Movie::addReview(float rating, string comment) {
     }
 }
 
-Movie::printReviews() {
+void Movie::printReviews() {
     cout << "Movie Title: " << this->title << endl;
-    if (!this->head) {
+    if (this->head == nullptr) {
         cout << "  > No reviews available for this movie\n\n";
     } else {
         Review *current = this->head;
         int count = 1;
         int sum = 0;
-        while (current) {
+        while (current != nullptr) {
             cout << "  > Review #" << count << ": ";
             cout << current->rating << ": " << current->comment << endl;
             sum += current->rating;
@@ -63,15 +63,12 @@ Movie::printReviews() {
 
 Movie::~Movie() {
     Review *current = this->head;
-    Review *next = newReview;
-    if (this->head) {
-        current = this->head;
-        while (current) {
-            next = current->next;
-            delete current;
-            current = next;
-        }
+    while (current) {
+        head = current->next;
+        delete current;
+        current = head;
     }
+    head = nullptr;
 }
 
 int main() {

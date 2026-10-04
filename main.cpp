@@ -26,10 +26,29 @@ Movie::addReview(float rating, string comment) {
     newReview->next = nullptr;
     newReview->rating = rating;
     newReview->comment = comment;
-    if (!this.head) {
-        this.head = newReview;
+    if (!this->head) {
+        this->head = newReview;
     } else {
         newReview->next = head;
         head = newReview;
+    }
+}
+
+Movie::printReviews() {
+    cout << "Movie Title: " << this.title << endl;
+    if (!this->head) {
+        cout << "  > No reviews available for this movie\n\n";
+    } else {
+        Review *current = this->head;
+        int count = 1;
+        int sum = 0;
+        while (current) {
+            cout << "  > Review #" << count << ": ";
+            cout << current->rating << ": " << current->comment << endl;
+            sum += current->rating;
+            count++;
+            current = current->next;
+        }
+        cout << "  > Average: " << (sum / count);
     }
 }

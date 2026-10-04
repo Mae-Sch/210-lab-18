@@ -65,7 +65,7 @@ void Movie::printReviews() {
 Movie::~Movie() {
     Review *current = this->head;
     current = this->head;
-    while (current) {
+    while (current && head) {
         head = current->next;
         delete current;
         current = head;

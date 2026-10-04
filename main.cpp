@@ -23,7 +23,7 @@ class Movie {
     ~Movie();
 };
 
-float randomReview() {
+float randomRating() {
     float num = rand() % 51; // random number between 0 and 50;
     num /= 10; // divide by 10 to get a number with one decimal place between 0.0 and 5.0;
     return num;
@@ -43,7 +43,7 @@ Movie::addReview(float rating, string comment) {
 }
 
 Movie::printReviews() {
-    cout << "Movie Title: " << this.title << endl;
+    cout << "Movie Title: " << this->title << endl;
     if (!this->head) {
         cout << "  > No reviews available for this movie\n\n";
     } else {
@@ -57,18 +57,18 @@ Movie::printReviews() {
             count++;
             current = current->next;
         }
-        cout << "  > Average: " << (sum / count);
+        cout << "  > Average: " << (sum / count) << endl << endl;
     }
 }
 
 Movie::~Movie() {
-    Review *current = new Review;
+    Review *current = this->head;
     Review *next = newReview;
-    if (head) {
-        current = head;
+    if (this->head) {
+        current = this->head;
         while (current) {
             next = current->next;
-            delete current
+            delete current;
             current = next;
         }
     }
@@ -76,7 +76,8 @@ Movie::~Movie() {
 
 int main() {
     const int NUM_MOVIES = 4;
-    movieTitles
+    const int NUM_REVIEWS = 3;
+    string titles[NUM_MOVIES] = {"Lord of the Rings", "The Godfather", "High School Musical", "Star Wars"};
     ifstream inFile("input.txt");
 
     if (!inFile.is_open()) {
@@ -86,7 +87,19 @@ int main() {
 
     vector<Movie> movies;
     for (int i = 0; i < NUM_MOVIES; ++i) {
+        Movie newMovie(titles[i]);
+        for (int j = 0; j < NUM_REVIEWS; ++j) {
+            string newReview;
+            getline(inFile, newReview);
+            newMovie.addReview(randomRating(), newReview);
+        }
+        movies.push_back(newMovie);
+    }
 
+    inFile.close();
+
+    for (int i = 0; i < movies.size(); ++i) {
+        movies.at(i).printReviews();
     }
 
     return 1;

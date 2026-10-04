@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <cmath>
+#include <iomanip>
 
 using namespace std;
 
@@ -49,20 +50,21 @@ void Movie::printReviews() {
     } else {
         Review *current = this->head;
         int count = 1;
-        int sum = 0;
+        float sum = 0;
         while (current != nullptr) {
             cout << "  > Review #" << count << ": ";
-            cout << current->rating << ": " << current->comment << endl;
+            cout << setprecision(2) << current->rating << ": " << current->comment << endl;
             sum += current->rating;
             count++;
             current = current->next;
         }
-        cout << "  > Average: " << (sum / count) << endl << endl;
+        cout << "  > Average: " << setprecision(2) << (sum / count) << endl << endl;
     }
 }
 
 Movie::~Movie() {
     Review *current = this->head;
+    current = this->head;
     while (current) {
         head = current->next;
         delete current;

@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <cmath>
 
 using namespace std;
 
@@ -20,6 +22,12 @@ class Movie {
     Movie(string t) {title = t, head = nullptr};
     ~Movie();
 };
+
+float randomReview() {
+    float num = rand() % 51; // random number between 0 and 50;
+    num /= 10; // divide by 10 to get a number with one decimal place between 0.0 and 5.0;
+    return num;
+}
 
 Movie::addReview(float rating, string comment) {
     Review *newReview = new Review;
@@ -64,4 +72,22 @@ Movie::~Movie() {
             current = next;
         }
     }
+}
+
+int main() {
+    const int NUM_MOVIES = 4;
+    movieTitles
+    ifstream inFile("input.txt");
+
+    if (!inFile.is_open()) {
+        cout << "File open failed";
+        return 0;
+    }
+
+    vector<Movie> movies;
+    for (int i = 0; i < NUM_MOVIES; ++i) {
+
+    }
+
+    return 1;
 }
